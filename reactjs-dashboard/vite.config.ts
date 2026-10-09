@@ -1,10 +1,8 @@
 import inertia from '@inertiajs/vite';
-import { wayfinder } from '@laravel/vite-plugin-wayfinder';
 import babel from '@rolldown/plugin-babel';
 import tailwindcss from '@tailwindcss/vite';
 import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import laravel from 'laravel-vite-plugin';
-import { bunny } from 'laravel-vite-plugin/fonts';
 import { defineConfig, lazyPlugins } from 'vite-plus';
 
 export default defineConfig({
@@ -12,11 +10,6 @@ export default defineConfig({
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.tsx'],
             refresh: true,
-            fonts: [
-                bunny('Instrument Sans', {
-                    weights: [400, 500, 600],
-                }),
-            ],
         }),
         inertia(),
         react(),
@@ -24,10 +17,19 @@ export default defineConfig({
             presets: [reactCompilerPreset()],
         }),
         tailwindcss(),
-        wayfinder({
-            formVariants: true,
-        }),
     ]),
+    resolve: {
+        alias: {
+            // Bare imports used inside the Horizon dashboard template
+            // (it was built for CRA with `baseUrl: "src"`).
+            assets: '/resources/js/horizon/assets',
+            components: '/resources/js/horizon/components',
+            layouts: '/resources/js/horizon/layouts',
+            variables: '/resources/js/horizon/variables',
+            views: '/resources/js/horizon/views',
+            routes: '/resources/js/horizon/routes.jsx',
+        },
+    },
     server: {
         watch: {
             ignored: [
@@ -48,6 +50,7 @@ export default defineConfig({
             'tailwind.config.js',
             'resources/js/actions/**',
             'resources/js/components/ui/*',
+            'resources/js/horizon/**',
             'resources/js/routes/**',
             'resources/js/wayfinder/**',
         ],
@@ -67,6 +70,7 @@ export default defineConfig({
             '.github/**',
             'composer.json',
             'resources/js/components/ui/*',
+            'resources/js/horizon/**',
             'resources/views/mail/*',
         ],
         sortTailwindcss: {

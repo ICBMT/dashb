@@ -1,10 +1,10 @@
-import { createInertiaApp } from '@inertiajs/react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+import App from './horizon/App';
 
-void createInertiaApp({
-    title: (title) => (title ? `${title} - ${appName}` : appName),
-    progress: {
-        color: '#4B5563',
-    },
-});
+createRoot(document.getElementById('app')!).render(
+    <BrowserRouter>
+        <App />
+    </BrowserRouter>,
+);
