@@ -1,11 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
 @import 'tailwindcss';
 
+/* Horizon UI theme (the dashboard template's Tailwind config) */
+@config '../js/horizon/tailwind.config.js';
+
+/* Theme additions so the template's Tailwind v3 utilities keep working on v4 */
+@theme {
+    --border-width-px: 1px;
+    --spacing-full: 100%;
+}
+
+/* `linear` transition-timing utility used by the template (v3 shorthand) */
+@utility linear {
+    transition-timing-function: linear;
+}
+
 @source '../views';
+@source '../js/horizon';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
-@theme {
-    --font-sans:
-        'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
-        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
-        'Noto Color Emoji';
+@layer base {
+    html {
+        font-family: 'DM Sans', sans-serif !important;
+        font-feature-settings: 'kern' !important;
+        -webkit-font-smoothing: antialiased;
+        letter-spacing: -0.5px;
+    }
+}
+
+input.defaultCheckbox::before {
+    content: url(../js/horizon/assets/svg/checked.svg);
+    color: white;
+    opacity: 0;
+    height: 16px;
+    width: 16px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0px);
+}
+
+input:checked.defaultCheckbox::before {
+    opacity: 1;
 }
