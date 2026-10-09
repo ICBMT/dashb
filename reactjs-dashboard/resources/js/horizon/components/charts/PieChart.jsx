@@ -1,4 +1,7 @@
-import Chart from "react-apexcharts";
+import ChartModule from "react-apexcharts";
+
+// react-apexcharts@1.4.0 is CommonJS and can arrive double-wrapped by Vite.
+const Chart = ChartModule.default ?? ChartModule;
 
 const PieChart = (props) => {
   const { series, options } = props;
